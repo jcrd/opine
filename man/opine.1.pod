@@ -1,0 +1,68 @@
+=head1 NAME
+
+opine - knows how to open files
+
+=head1 SYNOPSIS
+
+B<opine> [options] FILE
+
+=head1 DESCRIPTION
+
+opine opens files in a predefined program according to its configuration file.
+It can serve as an xdg-open replacement.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-h>
+
+Show help message.
+
+=item B<-t>
+
+Show mimetype of FILE.
+
+=item B<-c> I<CONFIG>
+
+Path to configuration file.
+
+=item B<-v>
+
+Show version.
+
+=back
+
+=head1 CONFIGURATION
+
+opine looks for a configuration file at F<$XDG_CONFIG_HOME/opine/config>
+or falls back to F<$HOME/.config/opine/config> if I<$XDG_CONFIG_HOME> is unset.
+
+The configuration file contains one B<regex>=B<cmd> mapping per line where:
+
+=over
+
+=item B<regex> is a Bash regular expression matched against the I<FILE>'s
+mimetype.
+
+If B<regex> is preceded by @, it is matched against the filename itself.
+
+=item B<cmd> is the command to open I<FILE> if it matches B<regex>.
+
+=back
+
+=head1 AUTHOR
+
+James Reed E<lt>jcrd@tuta.ioE<gt>
+
+=head1 REPORTING BUGS
+
+Bugs and issues can be reported here: L<https://github.com/jcrd/opine/issues>
+
+=head1 COPYRIGHT
+
+Copyright 2019 James Reed. opine is licensed under the MIT License.
+
+=head1 SEE ALSO
+
+B<xdg-open>(1)

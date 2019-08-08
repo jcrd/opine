@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# This project is licensed under the MIT License (see LICENSE).
+
+set -eu
+
+readonly VERSION=
+
+readonly configpath="${XDG_CONFIG_HOME:-$HOME/.config}"
+config="${OPINE_CONFIG:-$configpath/opine/config}"
+
+usage() {
+    echo 'usage: opine [options] FILE
+
+options:
+  -h         Show help message
+  -t         Show mimetype of FILE
+  -c CONFIG  Path to config
+  -v         Show version'
+}
+
+usage_error() {
+    usage >&2
+    exit 2
+}
+
+mimetype() {
+    local type
+    type="$(file -b --mime-type "$1")"
+    r=$?
+    if [[ "$type" == 'inode/symlink' ]]; then
+        mimetype "$(readlink -f "$1")"
+        return $?
+    else
+        echo "$type"
+    fi
+    return $r
+}
+
+while getopts ':htc:v' opt; do
+    case "$opt" in
+        h) usage; exit ;;
+        t) mimetype "$2"; exit $? ;;
+        c) config="$OPTARG" ;;
+        v) echo "$VERSION"; exit ;;
+        *) usage_error
+    esac
+done
+
+shift $((OPTIND - 1))
+
+if [[ ! -e "$config" ]]; then
+    echo "'$config' does not exist" >&2
+    exit 1
+fi
+
+[[ $# -eq 0 ]] && usage_error
+
+while IFS='=' read -r regex cmd; do
+    match=
+    if [[ "$regex" =~ ^@ ]]; then
+        regex="${regex#@}"
+        match="$1"
+    fi
+    mimetype="${mimetype-$(mimetype "$1")}"
+    if [[ "${match:-$mimetype}" =~ ^$regex$ ]]; then
+        exec "$cmd" "$1"
+    fi
+done < "$config"
+
+echo "no matching command found for: $1" >&2
+exit 1
