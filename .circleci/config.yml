@@ -1,0 +1,8 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: supplantr/opine:0.1
+    steps:
+      - checkout
+      - run: make test
