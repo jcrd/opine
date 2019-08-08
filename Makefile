@@ -29,4 +29,7 @@ uninstall:
 clean:
 	rm -f opine $(MANPAGE)
 
-.PHONY: all install uninstall clean
+test: opine
+	$(MAKE) -C test
+
+.PHONY: all install uninstall clean test
