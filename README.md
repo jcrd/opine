@@ -1,4 +1,4 @@
-# opine
+# opine [![CircleCI](https://circleci.com/gh/jcrd/opine.svg?style=svg)](https://circleci.com/gh/jcrd/opine)
 
 opine opens files in a predefined program according to its configuration file.
 It can serve as an xdg-open replacement.
