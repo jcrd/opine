@@ -10,7 +10,7 @@ MANPAGE = opine.1
 all: opine $(MANPAGE)
 
 opine: opine.in
-	sed -e "s/VERSION=/VERSION=$(VERSION)/" opine.in > opine
+	sed -e "s/@VERSION/$(VERSION)/" opine.in > opine
 	chmod +x opine
 
 $(MANPAGE): man/$(MANPAGE).pod

@@ -4,7 +4,7 @@
 
 set -eu
 
-readonly VERSION=
+readonly VERSION=@VERSION
 
 readonly configpath="${XDG_CONFIG_HOME:-$HOME/.config}"
 config="${OPINE_CONFIG:-$configpath/opine/config}"
