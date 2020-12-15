@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: supplantr/opine:0.1
+      - image: supplantr/opine:latest
     steps:
       - checkout
       - run: make test
