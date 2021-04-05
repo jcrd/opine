@@ -53,7 +53,7 @@ If B<regex> is preceded by @, it is matched against the filename itself.
 
 =head1 AUTHOR
 
-James Reed E<lt>jcrd@tuta.ioE<gt>
+James Reed E<lt>james@twiddlingbits.netE<gt>
 
 =head1 REPORTING BUGS
 
